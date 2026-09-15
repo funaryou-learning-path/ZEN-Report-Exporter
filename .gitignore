@@ -1,0 +1,6 @@
+node_modules/
+dist/
+.env
+cookie.txt
+login-error.png
+*.log
