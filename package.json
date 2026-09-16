@@ -8,6 +8,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "server": "node server/index.js",
+    "postinstall": "playwright install chromium",
     "login": "node server/login.js",
     "login:headed": "HEADLESS=false node server/login.js",
     "dev:all": "concurrently -n client,server -c blue,green \"npm run dev\" \"npm run server\"",

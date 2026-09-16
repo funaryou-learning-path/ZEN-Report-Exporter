@@ -15,6 +15,12 @@ cd project
 npm install
 ```
 
+`postinstall` でPlaywrightのChromiumも自動取得します。取得に失敗した場合は以下を手動実行します。
+
+```bash
+npx playwright install chromium
+```
+
 ### 1. 環境変数
 
 `.env.example` を参考に `.env` を作成します。

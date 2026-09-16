@@ -96,7 +96,18 @@ async function main() {
     // 2段階認証やチャレンジが出る場合は手動介入待ち（HEADLESS=false推奨）
     // 最終的に www.nnn.ed.nico/home に戻るのを最大180秒待つ
     console.log('[login] 認証結果を待機します（2段階認証がある場合は手動で進めてください）')
-    await page.waitForURL(/www\.nnn\.ed\.nico\/home/, { timeout: 180000 })
+    let landed = false
+    const deadline = Date.now() + 180000
+    while (Date.now() < deadline) {
+      try {
+        await page.waitForURL(/www\.nnn\.ed\.nico\/home/, { timeout: 30000 })
+        landed = true
+        break
+      } catch {
+        console.log(`[login] 待機中... 現在: ${page.url().slice(0, 140)}`)
+      }
+    }
+    if (!landed) throw new Error(`homeへの復帰を待機できませんでした。最終URL: ${page.url()}`)
     console.log('[login] ZEN Study home に到達しました:', page.url())
 
     const cookies = await ctx.cookies()
